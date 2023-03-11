@@ -1,5 +1,6 @@
 package com.pereyrarg11.instagramcomposable
 
+import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -55,9 +56,15 @@ fun Body(modifier: Modifier) {
     Column(modifier = modifier) {
         ImageLogo(Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(16.dp))
-        EmailField(emailValue) { emailValue = it }
+        EmailField(emailValue) {
+            emailValue = it
+            isLoginEnabled = shouldBeLoginEnabled(emailValue, passwordValue)
+        }
         Spacer(modifier = Modifier.size(4.dp))
-        PasswordField(passwordValue) { passwordValue = it }
+        PasswordField(passwordValue) {
+            passwordValue = it
+            isLoginEnabled = shouldBeLoginEnabled(emailValue, passwordValue)
+        }
         Spacer(modifier = Modifier.size(8.dp))
         ForgotPasswordButton(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.size(16.dp))
@@ -143,7 +150,17 @@ fun ForgotPasswordButton(modifier: Modifier) {
 
 @Composable
 fun LoginButton(loginEnabled: Boolean) {
-    Button(onClick = {}, enabled = loginEnabled, modifier = Modifier.fillMaxWidth()) {
+    Button(
+        onClick = {},
+        enabled = loginEnabled,
+        modifier = Modifier.fillMaxWidth(),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color(0xFF4EA8E9),
+            disabledBackgroundColor = Color(0xFF78C8F9),
+            contentColor = Color.White,
+            disabledContentColor = Color.White
+        )
+    ) {
         Text(text = "Log in")
     }
 }
@@ -223,3 +240,6 @@ fun SignUp() {
         )
     }
 }
+
+private fun shouldBeLoginEnabled(email: String, password: String) =
+    Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length > 6
