@@ -14,10 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.pereyrarg11.instagramcomposable.R
-import com.pereyrarg11.instagramcomposable.ui.theme.Caption
+import com.pereyrarg11.instagramcomposable.ui.theme.TwitterPostOnBackgroundSecondary
 
+@Preview
 @Composable
 fun TwitterReactions() {
     var isCommented by rememberSaveable { mutableStateOf(false) }
@@ -32,7 +35,7 @@ fun TwitterReactions() {
             reactionsCount = commentsCount,
             contentDescription = "Comments",
             iconRes = if (isCommented) R.drawable.ic_chat_filled else R.drawable.ic_chat,
-            iconColor = Caption
+            iconColor = TwitterPostOnBackgroundSecondary
         ) {
             isCommented = !isCommented
             if (isCommented) commentsCount++ else commentsCount--
@@ -42,7 +45,7 @@ fun TwitterReactions() {
             reactionsCount = rtCount,
             contentDescription = "RT",
             iconRes = R.drawable.ic_rt,
-            iconColor = if (isRt) Color.Green else Caption
+            iconColor = if (isRt) Color.Green else TwitterPostOnBackgroundSecondary
         ) {
             isRt = !isRt
             if (isRt) rtCount++ else rtCount--
@@ -52,7 +55,7 @@ fun TwitterReactions() {
             reactionsCount = likesCount,
             contentDescription = "Likes",
             iconRes = if (isLiked) R.drawable.ic_like_filled else R.drawable.ic_like,
-            iconColor = if (isLiked) Color.Red else Caption
+            iconColor = if (isLiked) Color.Red else TwitterPostOnBackgroundSecondary
         ) {
             isLiked = !isLiked
             if (isLiked) likesCount++ else likesCount--
@@ -78,6 +81,11 @@ fun TwitterIconButton(
                 .clickable { onClickListener() }
         )
         Spacer(modifier = Modifier.size(4.dp))
-        Text(text = reactionsCount.toString())
+        Text(
+            text = reactionsCount.toString(),
+            color = TwitterPostOnBackgroundSecondary,
+            fontSize = 16.sp
+        )
+        Spacer(modifier = Modifier.size(32.dp))
     }
 }
