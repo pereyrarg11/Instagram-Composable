@@ -9,6 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.pereyrarg11.instagramcomposable.recyclerview.SuperHeroStateRecyclerView
 import com.pereyrarg11.instagramcomposable.recyclerview.SuperheroGrid
 import com.pereyrarg11.instagramcomposable.ui.theme.InstagramComposableTheme
 
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    SuperheroGrid()
+                    SuperHeroStateRecyclerView()
                 }
             }
         }

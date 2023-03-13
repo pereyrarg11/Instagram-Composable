@@ -11,9 +11,11 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pereyrarg11.instagramcomposable.R
 import com.pereyrarg11.instagramcomposable.recyclerview.model.Superhero
+import kotlinx.coroutines.launch
 
 @Composable
 fun SimpleRecyclerView() {
@@ -49,6 +52,41 @@ fun SuperHeroRecyclerView() {
         items(getSuperheroList()) { superheroItem ->
             SuperheroViewHolder(superhero = superheroItem) {
                 Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+}
+
+@Composable
+fun SuperHeroStateRecyclerView() {
+    val context = LocalContext.current
+    val lazyColumnState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+    Column {
+        LazyColumn(
+            state = lazyColumnState,
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(getSuperheroList()) { superheroItem ->
+                SuperheroViewHolder(superhero = superheroItem) {
+                    Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        val showButton by remember { derivedStateOf { lazyColumnState.firstVisibleItemIndex > 0 } }
+
+        if (showButton) {
+            Button(
+                onClick = {
+                    coroutineScope.launch { lazyColumnState.animateScrollToItem(0) }
+                },
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(16.dp)
+            ) {
+                Text(text = "Scroll Up")
             }
         }
     }
