@@ -9,7 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.pereyrarg11.instagramcomposable.twitter.TwitterPostLayout
+import com.pereyrarg11.instagramcomposable.recyclerview.SimpleRecyclerView
 import com.pereyrarg11.instagramcomposable.ui.theme.InstagramComposableTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +23,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     //LoginScreen()
-                    TwitterPostLayout()
+                    //TwitterPostLayout()
+                    SimpleRecyclerView()
                 }
             }
         }
@@ -35,6 +36,7 @@ class MainActivity : ComponentActivity() {
 fun DefaultPreview() {
     InstagramComposableTheme {
         //LoginScreen()
-        TwitterPostLayout()
+        //TwitterPostLayout()
+        SimpleRecyclerView()
     }
 }
