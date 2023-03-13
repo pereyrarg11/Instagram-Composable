@@ -7,6 +7,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -59,27 +62,59 @@ fun SuperheroViewHolder(superhero: Superhero, onItemClick: (Superhero) -> Unit) 
             .width(200.dp)
             .clickable { onItemClick(superhero) }
     ) {
-        Column {
-            Image(
-                painter = painterResource(id = superhero.photo),
-                contentDescription = superhero.name,
-                modifier = Modifier.fillMaxWidth(),
-                contentScale = ContentScale.Crop
-            )
-            Text(text = superhero.name, modifier = Modifier.align(Alignment.CenterHorizontally))
-            Text(
-                text = superhero.realName,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                fontSize = 12.sp
-            )
-            Text(
-                text = superhero.publisher,
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(end = 4.dp),
-                fontSize = 10.sp
-            )
-        }
+        SuperheroCardContent(superhero = superhero)
+    }
+}
+
+@Composable
+fun SuperheroGrid() {
+    val context = LocalContext.current
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(all = 8.dp),
+        content = {
+            items(getSuperheroList()) { superheroItem ->
+                SuperheroGridCard(superhero = superheroItem) {
+                    Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+}
+
+@Composable
+fun SuperheroGridCard(superhero: Superhero, onItemClick: (Superhero) -> Unit) {
+    Card(
+        border = BorderStroke(1.5.dp, Color.Green),
+        modifier = Modifier
+            .clickable { onItemClick(superhero) }
+            .padding(8.dp)
+    ) {
+        SuperheroCardContent(superhero = superhero)
+    }
+}
+
+@Composable
+fun SuperheroCardContent(superhero: Superhero) {
+    Column {
+        Image(
+            painter = painterResource(id = superhero.photo),
+            contentDescription = superhero.name,
+            modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.Crop
+        )
+        Text(text = superhero.name, modifier = Modifier.align(Alignment.CenterHorizontally))
+        Text(
+            text = superhero.realName,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            fontSize = 12.sp
+        )
+        Text(
+            text = superhero.publisher,
+            modifier = Modifier
+                .align(Alignment.End)
+                .padding(4.dp),
+            fontSize = 10.sp
+        )
     }
 }
 
