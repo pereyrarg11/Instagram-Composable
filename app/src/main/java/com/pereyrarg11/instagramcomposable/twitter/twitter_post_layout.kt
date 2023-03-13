@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -49,6 +50,13 @@ fun TwitterPostLayout() {
                     )
                     Spacer(modifier = Modifier.size(4.dp))
                     Text(text = "@pereyrarg11 - 7h", color = TwitterPostOnBackgroundSecondary)
+                    Spacer(modifier = Modifier.weight(1f))
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_dots),
+                        contentDescription = "More",
+                        modifier = Modifier.size(24.dp),
+                        tint = TwitterPostOnBackgroundSecondary
+                    )
                 }
                 Text(
                     text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere, lacus consequat vulputate eleifend, nisi lorem congue orci, in lacinia nulla odio eget dui. Suspendisse facilisis faucibus ante. Proin lectus augue, rhoncus quis iaculis vel, malesuada vel lectus. Integer dictum sagittis dictum. Donec dapibus ex lacus, vitae porta ipsum suscipit ut. Cras sollicitudin hendrerit tellus non laoreet. Morbi consectetur augue et felis vehicula, nec feugiat enim elementum.",
