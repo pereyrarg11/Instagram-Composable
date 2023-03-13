@@ -1,9 +1,7 @@
 package com.pereyrarg11.instagramcomposable.recyclerview
 
 import android.widget.Toast
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -57,12 +55,39 @@ fun SuperHeroRecyclerView() {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun SuperHeroStickyHeaderRecyclerView() {
+    val context = LocalContext.current
+    val publishers = getSuperheroList().groupBy { it.publisher }
+
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        publishers.forEach { (name, superheroList) ->
+            stickyHeader {
+                Text(
+                    text = name,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .background(Color.Yellow)
+                        .fillMaxWidth()
+                )
+            }
+
+            items(superheroList) { superheroItem ->
+                SuperheroViewHolder(superhero = superheroItem) {
+                    Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+}
+
 @Composable
 fun SuperHeroStateRecyclerView() {
     val context = LocalContext.current
     val lazyColumnState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
-    Column {
+    Column(modifier = Modifier.fillMaxWidth()) {
         LazyColumn(
             state = lazyColumnState,
             modifier = Modifier.weight(1f),
@@ -97,7 +122,7 @@ fun SuperheroViewHolder(superhero: Superhero, onItemClick: (Superhero) -> Unit) 
     Card(
         border = BorderStroke(2.dp, Color.Red),
         modifier = Modifier
-            .width(200.dp)
+            .fillMaxWidth()
             .clickable { onItemClick(superhero) }
     ) {
         SuperheroCardContent(superhero = superhero)
