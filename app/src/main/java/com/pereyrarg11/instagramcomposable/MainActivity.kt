@@ -9,6 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.pereyrarg11.instagramcomposable.twitter.TwitterPostLayout
 import com.pereyrarg11.instagramcomposable.ui.theme.InstagramComposableTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +22,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    LoginScreen()
+                    //LoginScreen()
+                    TwitterPostLayout()
                 }
             }
         }
@@ -32,6 +34,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     InstagramComposableTheme {
-        LoginScreen()
+        //LoginScreen()
+        TwitterPostLayout()
     }
 }
