@@ -26,6 +26,9 @@ fun ScaffoldScreen() {
         },
         scaffoldState = scaffoldState,
         bottomBar = { BottomNavLayout() },
+        floatingActionButton = { FabLayout() },
+        floatingActionButtonPosition = FabPosition.Center,
+        isFloatingActionButtonDocked = true,
     ) { innerPadding ->
         Box(
             modifier = Modifier
@@ -82,14 +85,16 @@ fun BottomNavLayout() {
             },
             label = { Text(text = "Favoritos") }
         )
+    }
+}
 
-        BottomNavigationItem(
-            selected = index == 2,
-            onClick = { index = 2 },
-            icon = {
-                Icon(imageVector = Icons.Default.Person, contentDescription = "User")
-            },
-            label = { Text(text = "User") }
-        )
+@Composable
+fun FabLayout() {
+    FloatingActionButton(
+        onClick = {},
+        backgroundColor = Color.Cyan,
+        contentColor = Color.White,
+    ) {
+        Icon(imageVector = Icons.Filled.Add, contentDescription = "add")
     }
 }
