@@ -9,8 +9,13 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.pereyrarg11.instagramcomposable.navigation.*
 import com.pereyrarg11.instagramcomposable.recyclerview.SuperheroGrid
-import com.pereyrarg11.instagramcomposable.scaffold.ScaffoldScreen
 import com.pereyrarg11.instagramcomposable.ui.theme.InstagramComposableTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +28,42 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    ScaffoldScreen()
+                    val navigationController = rememberNavController()
+                    NavHost(
+                        navController = navigationController,
+                        startDestination = Routes.ScreenOne.route
+                    ) {
+                        composable(Routes.ScreenOne.route) { FirstScreenLayout(navigationController) }
+                        composable(Routes.ScreenTwo.route) { SecondScreenLayout(navigationController) }
+                        composable(Routes.ScreenThree.route) {
+                            ThirdScreenLayout(
+                                navigationController
+                            )
+                        }
+                        composable(Routes.ScreenFour.route,
+                            arguments = listOf(
+                                navArgument("number") { type = NavType.IntType }
+                            )
+                        ) { backStackEntry ->
+                            FourthScreenLayout(
+                                navigationController = navigationController,
+                                luckyNumber = backStackEntry.arguments?.getInt("number") ?: 0
+                            )
+                        }
+                        composable(Routes.ScreenFive.route,
+                            arguments = listOf(
+                                navArgument("name") {
+                                    // arguments are String type by default!
+                                    defaultValue = "John Doe"
+                                }
+                            )
+                        ) { backStackEntry ->
+                            FifthScreenLayout(
+                                navigationController = navigationController,
+                                name = backStackEntry.arguments?.getString("name")
+                            )
+                        }
+                    }
                 }
             }
         }
