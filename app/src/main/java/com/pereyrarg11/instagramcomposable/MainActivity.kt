@@ -50,6 +50,19 @@ class MainActivity : ComponentActivity() {
                                 luckyNumber = backStackEntry.arguments?.getInt("number") ?: 0
                             )
                         }
+                        composable(Routes.ScreenFive.route,
+                            arguments = listOf(
+                                navArgument("name") {
+                                    // arguments are String type by default!
+                                    defaultValue = "John Doe"
+                                }
+                            )
+                        ) { backStackEntry ->
+                            FifthScreenLayout(
+                                navigationController = navigationController,
+                                name = backStackEntry.arguments?.getString("name")
+                            )
+                        }
                     }
                 }
             }
