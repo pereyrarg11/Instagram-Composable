@@ -9,8 +9,14 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.pereyrarg11.instagramcomposable.navigation.FirstScreenLayout
+import com.pereyrarg11.instagramcomposable.navigation.Routes
+import com.pereyrarg11.instagramcomposable.navigation.SecondScreenLayout
+import com.pereyrarg11.instagramcomposable.navigation.ThirdScreenLayout
 import com.pereyrarg11.instagramcomposable.recyclerview.SuperheroGrid
-import com.pereyrarg11.instagramcomposable.scaffold.ScaffoldScreen
 import com.pereyrarg11.instagramcomposable.ui.theme.InstagramComposableTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +29,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    ScaffoldScreen()
+                    val navigationController = rememberNavController()
+                    NavHost(navController = navigationController, startDestination = Routes.ScreenOne.route) {
+                        composable(Routes.ScreenOne.route) { FirstScreenLayout(navigationController) }
+                        composable(Routes.ScreenTwo.route) { SecondScreenLayout(navigationController) }
+                        composable(Routes.ScreenThree.route) { ThirdScreenLayout(navigationController) }
+                    }
                 }
             }
         }
