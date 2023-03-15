@@ -9,12 +9,8 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.pereyrarg11.instagramcomposable.navigation.*
+import com.pereyrarg11.instagramcomposable.login.ui.LoginScreen
+import com.pereyrarg11.instagramcomposable.login.ui.LoginViewModel
 import com.pereyrarg11.instagramcomposable.recyclerview.SuperheroGrid
 import com.pereyrarg11.instagramcomposable.ui.theme.InstagramComposableTheme
 
@@ -28,7 +24,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val navigationController = rememberNavController()
+                    LoginScreen(loginViewModel = LoginViewModel())
+                    /*val navigationController = rememberNavController()
                     NavHost(
                         navController = navigationController,
                         startDestination = Routes.ScreenOne.route
@@ -63,7 +60,7 @@ class MainActivity : ComponentActivity() {
                                 name = backStackEntry.arguments?.getString("name")
                             )
                         }
-                    }
+                    }*/
                 }
             }
         }
